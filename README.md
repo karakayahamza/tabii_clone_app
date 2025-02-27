@@ -1,8 +1,7 @@
 # README for Tabii Clone App
 
-## Ödev Tanımı
 
-Tabii Clone App, Flutter kullanılarak geliştirilmiş bir uygulamadır. Bu uygulama, kullanıcıların Google hesaplarıyla hızlı ve kolay bir şekilde giriş yapmalarını sağlayan basit bir giriş ekranına sahiptir. Uygulama, Firebase ile entegre edilmiştir ve karanlık bir tema ile tasarlanmıştır.
+Tabii Clone App, popüler dijital film ve dizi platformu Tabii'nin Flutter kullanılarak geliştirilmiş bir klonudur. Uygulama, kullanıcıların Google hesaplarıyla hızlı ve kolay giriş yapmalarını sağlayan bir giriş ekranına sahiptir. Firebase entegrasyonu ile çalışan bu uygulama, orijinal platformun deneyimini yansıtacak şekilde modern ve şık bir karanlık tema ile tasarlanmıştır.
 
 ## Özellikler
 

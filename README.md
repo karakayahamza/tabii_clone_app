@@ -41,3 +41,56 @@ Uygulamanın ana giriş noktası `lib/main.dart` dosyasında bulunmaktadır. İ�
 ## Kullanıcı Deneyimi
 
 Uygulama, kullanıcı deneyimini ön planda tutarak tasarlanmıştır. Splash ekranı, kullanıcıya hoş bir karşılama sunarken, giriş ekranı basit ve anlaşılırdır. Kullanıcılar, yalnızca Google hesaplarıyla hızlı bir şekilde giriş yaparak ana ekrana ulaşabilirler.
+
+
+Uygulamanı GitHub'a yüklediğinde, insanların kendi bilgisayarlarında çalıştırabilmesi için bir **kurulum ve çalıştırma kılavuzu** eklemen gerekiyor. Bunun için **README.md** dosyasına aşağıdaki adımları ekleyebilirsin:  
+
+## Kurulum
+
+## 🚀 Tabii Clone App - Kurulum ve Çalıştırma Rehberi  
+
+Bu proje, **Flutter** kullanılarak geliştirilen Tabii platformunun bir klonudur. Firebase ile entegre edilmiştir ve Google Girişi özelliğini destekler.  
+
+### 📥 Projeyi İndirme ve Çalıştırma  
+
+1️⃣ **Flutter'ı ve Gerekli Araçları Kur**  
+- Flutter SDK'yı indir: [Flutter Kurulumu](https://flutter.dev/docs/get-started/install)  
+- Android Studio veya Visual Studio Code kullanarak Flutter geliştirme ortamını hazırla.  
+
+2️⃣ **Projeyi Klonla**  
+GitHub deposunu kendi bilgisayarına çekmek için aşağıdaki komutu çalıştır:  
+
+```sh
+git clone https://github.com/KullanıcıAdın/Tabii-Clone-App.git
+```
+
+Daha sonra proje klasörüne gir:  
+
+```sh
+cd Tabii-Clone-App
+```
+
+3️⃣ **Bağımlılıkları Yükle**  
+Projedeki tüm bağımlılıkları yüklemek için şu komutu çalıştır:  
+
+```sh
+flutter pub get
+```
+
+4️⃣ **Firebase Yapılandırması**  
+Uygulamanın çalışması için Firebase yapılandırmasını yapman gerekiyor:  
+- [Firebase Console](https://console.firebase.google.com/) adresinden bir proje oluştur.  
+- **google-services.json** (Android için) ve **GoogleService-Info.plist** (iOS için) dosyalarını projeye ekle.  
+
+5️⃣ **Uygulamayı Çalıştır**  
+Şu komutu kullanarak uygulamayı çalıştırabilirsin:  
+
+```sh
+flutter run
+```
+
+✅ **Tebrikler!** Uygulama artık çalışıyor.  
+
+---
+
+Bu **README.md** dosyasını projenin kök dizinine eklediğinde, insanlar projeyi indirdiklerinde nasıl çalıştıracaklarını kolayca öğrenebilirler. Eğer Firebase entegrasyonu olmadan da çalıştırılabilmesini istiyorsan, **Firebase'siz bir demo sürümünü** de ekleyebilirsin.

@@ -1,63 +1,44 @@
 # README for Tabii Clone App
 
-## Overview
+## Ödev Tanımı
 
-Tabii Clone App is a Flutter application designed to provide a seamless user experience with a dark theme. The app utilizes Firebase for backend services and features a splash screen that transitions to the main application interface. 
+Tabii Clone App, Flutter kullanılarak geliştirilmiş bir uygulamadır. Bu uygulama, kullanıcıların Google hesaplarıyla hızlı ve kolay bir şekilde giriş yapmalarını sağlayan basit bir giriş ekranına sahiptir. Uygulama, Firebase ile entegre edilmiştir ve karanlık bir tema ile tasarlanmıştır.
 
-## Features
+## Özellikler
 
-- **Splash Screen**: A visually appealing splash screen that appears when the app is launched.
-- **Login Screen**: A dedicated screen for user authentication.
-- **Main Screen**: The primary interface of the application, accessible after login.
-- **Dark Theme**: The app is designed with a dark theme for better visibility and user comfort.
+- **Splash Ekranı**: 
+  - Uygulama başlatıldığında, kullanıcıya uygulamanın logosunu veya markasını gösteren bir splash ekranı ile karşılaşır. Bu ekran, uygulamanın başlatılması sırasında kullanıcı deneyimini iyileştirir.
 
-## Technologies Used
+- **Giriş Ekranı**: 
+  - Giriş ekranı, kullanıcıların yalnızca Google hesaplarıyla kayıt olmalarını veya giriş yapmalarını sağlayan basit bir arayüze sahiptir. Bu, kullanıcıların geleneksel kullanıcı adı ve şifre girişi yapmadan hızlı bir şekilde oturum açmalarını sağlar.
 
-- **Flutter**: The framework used for building the application.
-- **Firebase**: Used for backend services, including user authentication and data storage.
+- **Ana Ekran**: 
+  - Başarılı bir girişin ardından kullanıcılar, uygulamanın ana ekranına yönlendirilir. Bu ekran, kullanıcıların uygulamanın çeşitli işlevlerine erişim sağlamasına olanak tanır.
 
-## Installation
+- **Karanlık Tema**: 
+  - Uygulama, düşük ışık koşullarında göz yorgunluğunu azaltmak için karanlık bir tema ile tasarlanmıştır. Renk paleti, okunabilirliği artırmak için dikkatlice seçilmiştir.
 
-To run this application locally, follow these steps:
+## Kullanılan Teknolojiler
 
-1. **Clone the repository**:
-   ```bash
-   git clone <repository-url>
-   cd tabii_clone_app
-   ```
+- **Flutter**: 
+  - Uygulamanın geliştirilmesinde kullanılan çerçeve, tek bir kod tabanı ile çapraz platform geliştirme imkanı sunar.
 
-2. **Install dependencies**:
-   Make sure you have Flutter installed on your machine. Then run:
-   ```bash
-   flutter pub get
-   ```
+- **Firebase**: 
+  - Kullanıcı kimlik doğrulaması ve veri yönetimi için arka uç hizmetleri sağlamak amacıyla kullanılır. Firebase, kullanıcı verilerini ve uygulama durumunu yönetmek için sağlam ve ölçeklenebilir bir çözüm sunar.
 
-3. **Set up Firebase**:
-   - Create a Firebase project in the [Firebase Console](https://console.firebase.google.com/).
-   - Follow the instructions to add your app to the Firebase project and download the `google-services.json` or `GoogleService-Info.plist` file.
-   - Place the file in the appropriate directory in your Flutter project.
+## Kod Yapısı
 
-4. **Run the application**:
-   ```bash
-   flutter run
-   ```
+Uygulamanın ana giriş noktası `lib/main.dart` dosyasında bulunmaktadır. İşte ana bileşenlerin kısa bir özeti:
 
-## Code Structure
+- **Firebase Başlatma**: 
+  - Uygulama, ana uygulama çalıştırılmadan önce Firebase hizmetlerini başlatır. Bu, uygulama başladığında tüm Firebase işlevlerinin kullanılabilir olmasını sağlar.
 
-The main entry point of the application is located in `lib/main.dart`. Here’s a brief overview of the key components:
+- **MyApp Sınıfı**: 
+  - Uygulamanın kök widget'ıdır ve `MaterialApp`'i yapılandırarak temalar ve yönlendirmeler ayarlar. Uygulamanın genel görünümünü ve hissini tanımlar.
 
-- **Firebase Initialization**: The app initializes Firebase services before running the main application.
-- **MyApp Class**: This is the root widget of the application, which sets up the MaterialApp with routes and themes.
-- **Routing**: The app defines routes for navigating between the splash screen, login screen, and main screen.
+- **Yönlendirme**: 
+  - Uygulama, splash ekranı, giriş ekranı ve ana ekran arasında geçiş yapmak için yönlendirmeler tanımlar. Bu, kullanıcıların uygulama içinde kolayca hareket etmelerini sağlar.
 
-## Contributing
+## Kullanıcı Deneyimi
 
-Contributions are welcome! If you have suggestions for improvements or new features, please open an issue or submit a pull request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-Feel free to modify this README as needed to better fit your project's specifics!
+Uygulama, kullanıcı deneyimini ön planda tutarak tasarlanmıştır. Splash ekranı, kullanıcıya hoş bir karşılama sunarken, giriş ekranı basit ve anlaşılırdır. Kullanıcılar, yalnızca Google hesaplarıyla hızlı bir şekilde giriş yaparak ana ekrana ulaşabilirler.

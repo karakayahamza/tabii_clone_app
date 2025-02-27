@@ -61,7 +61,7 @@ Bu proje, **Flutter** kullanılarak geliştirilen Tabii platformunun bir klonudu
 GitHub deposunu kendi bilgisayarına çekmek için aşağıdaki komutu çalıştır:  
 
 ```sh
-git clone https://github.com/KullanıcıAdın/Tabii-Clone-App.git
+git clone https://github.com/karakayahamza/tabii_clone_app.git
 ```
 
 Daha sonra proje klasörüne gir:  

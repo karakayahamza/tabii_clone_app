@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'favorites_screen.dart';
+import 'download_screen.dart';
 import 'profile_screen.dart';
 import 'home_screen.dart';
-import 'search_screen.dart';
-
+import 'myList_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -17,8 +16,8 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _screens = [
     const HomeScreen(),
-    const SearchScreen(),
-    const FavoritesScreen(),
+    const MyListScreen(),
+    const DownloadScreen(),
     const ProfileScreen(),
   ];
 
@@ -34,14 +33,23 @@ class _MainScreenState extends State<MainScreen> {
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Ana Sayfa'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Arama'),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favoriler'),
+        items: [
+          BottomNavigationBarItem(
+            icon: ImageIcon(AssetImage('assets/icon/house.png')),
+            label: 'Ana Sayfa',
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(AssetImage('assets/icon/archive.png')),
+            label: 'Listem',
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(AssetImage('assets/icon/download.png')),
+            label: 'İndirilenler',
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: Colors.teal,
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       ),

@@ -9,7 +9,6 @@ class ProfileScreen extends StatelessWidget {
     try {
       await FirebaseAuth.instance.signOut();
       await GoogleSignIn().signOut();
-
       Navigator.pushReplacementNamed(context, "/login");
     } catch (e) {
       debugPrint("Çıkış yapılamadı: $e");
@@ -27,49 +26,81 @@ class ProfileScreen extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         }
-
         if (!snapshot.hasData) {
           return const Center(child: Text('Kullanıcı girişi yapılmamış.'));
         }
-
         User? user = snapshot.data;
 
         return Scaffold(
-          appBar: AppBar(title: const Text('Profil Ekranı')),
-          body: Center(
+          backgroundColor: Colors.black,
+          appBar: AppBar(
+            title: const Text('Profil Ekranı'),
+            backgroundColor: Colors.black,
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(20.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CircleAvatar(
-                  radius: 50,
-                  backgroundImage: NetworkImage(user?.photoURL ?? ''),
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  'Hoşgeldiniz, ${user?.displayName ?? 'Bilinmeyen Kullanıcı'}',
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.network(
+                    user?.photoURL ?? '',
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                    errorBuilder:
+                        (context, error, stackTrace) => Container(
+                          width: 100,
+                          height: 100,
+                          color: Colors.grey,
+                          child: const Icon(
+                            Icons.person,
+                            size: 50,
+                            color: Colors.white,
+                          ),
+                        ),
                   ),
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'Email: ${user?.email ?? 'Bilgi Yok'}',
-                  style: const TextStyle(fontSize: 16),
+                  user?.displayName ?? 'Bilinmeyen Kullanıcı',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () => _signOut(context),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.amber,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 15,
+                const SizedBox(height: 10),
+                GestureDetector(
+                  onTap: () {
+                    // Profil yönetimi ekranına yönlendirme yapılabilir.
+                  },
+                  child: const Text(
+                    "Profilleri Yönet",
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 16,
+                      decoration: TextDecoration.underline,
                     ),
                   ),
-                  child: const Text(
-                    "Çıkış Yap",
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+                const SizedBox(height: 20),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      _buildMenuItem("Hesap Bilgileri"),
+                      _buildMenuItem("Bildirimler"),
+                      _buildMenuItem("Abonelik Bilgileri"),
+                      _buildMenuItem("İndirme Ayarları"),
+                      _buildMenuItem("TV Giriş"),
+                      _buildMenuItem("Uygulama Hakkında"),
+                      _buildMenuItem(
+                        "Çıkış",
+                        isLogout: true,
+                        onTap: () => _signOut(context),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -77,6 +108,25 @@ class ProfileScreen extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildMenuItem(
+    String title, {
+    bool isLogout = false,
+    VoidCallback? onTap,
+  }) {
+    return ListTile(
+      title: Text(
+        title,
+        style: const TextStyle(color: Colors.white, fontSize: 16),
+      ),
+      trailing: const Icon(
+        Icons.arrow_forward_ios,
+        color: Colors.white,
+        size: 16,
+      ),
+      onTap: onTap ?? () {},
     );
   }
 }

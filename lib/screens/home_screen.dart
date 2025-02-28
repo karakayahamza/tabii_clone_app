@@ -17,17 +17,17 @@ final List<String> channels = [
 ];
 
 final Map<String, String> channelImages = {
-  'Aksiyon': 'assets/images/image6.png',
-  'Tarih': 'assets/images/image5.png',
-  'Dram': 'assets/images/image3.png',
-  'Komedi': 'assets/images/image4.png',
-  'Suç': 'assets/images/image2.png',
-  'Romantik': 'assets/images/image.png',
-  'Spor': 'assets/images/image7.png',
-  'Animasyon': 'assets/images/image8.png',
-  'Seyahat': 'assets/images/cirak.png',
-  'Aile': 'assets/images/Gassal.png',
-  'İnsan Hikayeleri': 'assets/images/example.png',
+  'Aksiyon': 'assets/images/series/image6.png',
+  'Tarih': 'assets/images/series/image5.png',
+  'Dram': 'assets/images/series/image3.png',
+  'Komedi': 'assets/images/series/image4.png',
+  'Suç': 'assets/images/series/image2.png',
+  'Romantik': 'assets/images/series/image.png',
+  'Spor': 'assets/images/series/image7.png',
+  'Animasyon': 'assets/images/series/image8.png',
+  'Seyahat': 'assets/images/series/cirak.png',
+  'Aile': 'assets/images/series/Gassal.png',
+  'İnsan Hikayeleri': 'assets/images/series/example.png',
 };
 final List<String> broadcastImages = [
   'assets/images/trt/TRT 1.png',
@@ -52,13 +52,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String selectedGenre = 'Aksiyon';
+  String selectedGenre = 'Tümü';
   final PageController _pageController = PageController();
   int _currentPage = 0;
   final FirebaseService _firebaseService = FirebaseService();
   List<MediaItem> mediaList = [];
   List<MediaItem> filmList = [];
-
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -75,15 +75,21 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _loadMediaItems() async {
+    setState(() {
+      isLoading = true;
+    });
     try {
       List<MediaItem> items = await _firebaseService.fetchMediaItems();
       setState(() {
         mediaList = items.where((item) => item.type == "Dizi").toList();
         filmList = items.where((item) => item.type == "Film").toList();
+        isLoading = false;
       });
-      print('Dizi öğeleri: ${mediaList.length}, Film öğeleri: ${filmList.length}');
     } catch (e) {
       print('Veri çekme hatası: $e');
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -104,188 +110,192 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 700,
-                  width: double.infinity,
-                  child: PageView.builder(
-                    controller: _pageController,
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      MediaItem media = mediaList[index];
-                      return Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          Positioned.fill(
-                            child: Image.asset(
-                              'assets/images/${media.imageUrl}.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 20,
-                            left: 16,
-                            right: 16,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Column(
+          isLoading
+              ? Center(child: CircularProgressIndicator())
+              : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 700,
+                      width: double.infinity,
+                      child: PageView.builder(
+                        controller: _pageController,
+                        itemCount: 5,
+                        itemBuilder: (context, index) {
+                          MediaItem media = mediaList[index];
+                          return Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: [
+                              Positioned.fill(
+                                child: Image.asset(
+                                  'assets/images/series/${media.imageUrl}.png',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 20,
+                                left: 16,
+                                right: 16,
+                                child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Row(
+                                    Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
-                                        Text(
-                                          media.keywords[0],
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 8),
-                                        Text(
-                                          "•",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 8),
-                                        Text(
-                                          media.keywords[1],
-                                          style: TextStyle(
-                                            color: Colors.white.withValues(
-                                              alpha: 0.7,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              media.keywords[0],
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 8),
-                                        Text(
-                                          "•",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 8),
-                                        Text(
-                                          media.keywords[2],
-                                          style: TextStyle(
-                                            color: Colors.white.withValues(
-                                              alpha: 0.7,
+                                            const SizedBox(width: 8),
+                                            Text(
+                                              "•",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.normal,
+                                            const SizedBox(width: 8),
+                                            Text(
+                                              media.keywords[1],
+                                              style: TextStyle(
+                                                color: Colors.white.withValues(
+                                                  alpha: 0.7,
+                                                ),
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8),
+                                            Text(
+                                              "•",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8),
+                                            Text(
+                                              media.keywords[2],
+                                              style: TextStyle(
+                                                color: Colors.white.withValues(
+                                                  alpha: 0.7,
+                                                ),
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: () {},
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "Oynat",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                            ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                    ElevatedButton(
-                                      onPressed: () {},
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            6,
-                                          ),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        "Oynat",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
                                   ],
                                 ),
-                              ],
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          mediaList.length,
+                          (index) => AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                            width: _currentPage == index ? 12 : 8,
+                            height: _currentPage == index ? 12 : 8,
+                            margin: const EdgeInsets.symmetric(horizontal: 4),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(2),
+                              color:
+                                  _currentPage == index
+                                      ? Color(0xFF00FF99)
+                                      : Colors.grey.withValues(alpha: 0.6),
                             ),
                           ),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      mediaList.length,
-                      (index) => AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                        width: _currentPage == index ? 12 : 8,
-                        height: _currentPage == index ? 12 : 8,
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(2),
-                          color:
-                              _currentPage == index
-                                  ? Color(0xFF00FF99)
-                                  : Colors.grey.withValues(alpha: 0.6),
                         ),
                       ),
                     ),
-                  ),
-                ),
-                Padding(
-
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Haftanın Öne Çıkanları',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Haftanın Öne Çıkanları',
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          SizedBox(
+                            height: 200,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 5,
+                              itemBuilder: (context, index) {
+                                MediaItem media = filmList[index];
+                                return Container(
+                                  width: 140,
+                                  margin: const EdgeInsets.only(right: 12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[900],
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.asset(
+                                      'assets/images/movies/${media.imageUrl}.png',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          buildLiveBroadcasts('Canlı Yayınlar'),
+                          const SizedBox(height: 24),
+                          buildContentTypes('Türler', channels),
+                        ],
                       ),
-                      const SizedBox(height: 16),
-                      SizedBox(
-                        height: 200,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 5,
-                          itemBuilder: (context, index) {
-                            MediaItem media = filmList[index];
-                            return Container(
-                              width: 140,
-                              margin: const EdgeInsets.only(right: 12),
-                              decoration: BoxDecoration(
-                                color: Colors.grey[900],
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.asset(
-                                  'assets/images/movies/${media.imageUrl}.png',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      buildLiveBroadcasts('Canlı Yayınlar'),
-                      const SizedBox(height: 24),
-                      buildContentTypes('Türler', channels),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
+              ),
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -515,7 +525,8 @@ Widget buildContentTypes(String title, List<String> items) {
                         topRight: Radius.circular(8),
                       ),
                       child: Image.asset(
-                        channelImages[item] ?? 'assets/images/example.png',
+                        channelImages[item] ??
+                            'assets/images/series/example.png',
                         fit: BoxFit.cover,
                       ),
                     ),

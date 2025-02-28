@@ -25,9 +25,9 @@ class _SignInScreenState extends State<SignInScreen> {
     'assets/image3.jpg',
   ];
   final List<String> _buttonTexts = [
-    "Hedefine hemen başla!",
-    "Hayalini gerçeğe dönüştür!",
-    "İlk adımını at!",
+    "Orijinal Diziler, en prestijli\nUEFA Maçları ve binlerce\nsaatlik içerik",
+    "İstediğin yerde\nİstediğin Zaman İzle!",
+    "Tüm aile izleyin\nAilenin Her üyesine Uygun İçerikler",
   ];
 
   @override
@@ -56,14 +56,17 @@ class _SignInScreenState extends State<SignInScreen> {
   Future<void> _signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      final UserCredential userCredential = await _auth.signInWithCredential(credential);
+      final UserCredential userCredential = await _auth.signInWithCredential(
+        credential,
+      );
       setState(() {
         _user = userCredential.user;
       });
@@ -105,13 +108,22 @@ class _SignInScreenState extends State<SignInScreen> {
                     },
                     children: [
                       Image.asset('assets/images/image.png', fit: BoxFit.cover),
-                      Image.asset('assets/images/image2.png', fit: BoxFit.cover),
-                      Image.asset('assets/images/image3.png', fit: BoxFit.cover),
+                      Image.asset(
+                        'assets/images/image2.png',
+                        fit: BoxFit.cover,
+                      ),
+                      Image.asset(
+                        'assets/images/image3.png',
+                        fit: BoxFit.cover,
+                      ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 20,
+                    horizontal: 40,
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -132,12 +144,12 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
                           _moviePosters.length,
-                              (index) => AnimatedContainer(
+                          (index) => AnimatedContainer(
                             duration: const Duration(milliseconds: 100),
                             curve: Curves.easeInOut,
                             width: _currentPage == index ? 6 : 6,
@@ -145,9 +157,10 @@ class _SignInScreenState extends State<SignInScreen> {
                             margin: const EdgeInsets.symmetric(horizontal: 4),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(2),
-                              color: _currentPage == index
-                                  ? Color(0xFF00FF99)
-                                  : Colors.grey.withOpacity(0.6),
+                              color:
+                                  _currentPage == index
+                                      ? Color(0xFF00FF99)
+                                      : Colors.grey.withOpacity(0.6),
                             ),
                           ),
                         ),
@@ -167,17 +180,20 @@ class _SignInScreenState extends State<SignInScreen> {
                             ),
                           ),
                         ),
-                        child: Text("Şimdi Üye Ol", style: TextStyle(color: Colors.black)),
+                        child: Text(
+                          "Şimdi Üye Ol",
+                          style: TextStyle(color: Colors.black),
+                        ),
                       ),
                       SizedBox(height: 10),
                       TextButton(
                         onPressed: _signInWithGoogle,
-                        child: Text("Bir hesabın var mı? Giriş yap"),
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.symmetric(vertical: 15),
                           textStyle: TextStyle(fontSize: 16),
                           minimumSize: Size(double.infinity, 50),
                         ),
+                        child: Text("Bir hesabın var mı? Giriş yap"),
                       ),
                     ],
                   ),

@@ -91,6 +91,8 @@ flutter run
 
 ✅ **Tebrikler!** Uygulama artık çalışıyor.  
 
----
 
-Bu **README.md** dosyasını projenin kök dizinine eklediğinde, insanlar projeyi indirdiklerinde nasıl çalıştıracaklarını kolayca öğrenebilirler. Eğer Firebase entegrasyonu olmadan da çalıştırılabilmesini istiyorsan, **Firebase'siz bir demo sürümünü** de ekleyebilirsin.
+## Ekran Görüntüleri
+<img src="https://github.com/user-attachments/assets/f9b7e921-bef3-4db6-8286-74f9e2b1ebd6" width="350" height="600">
+<img src="https://github.com/user-attachments/assets/7f6af051-ebe2-437a-bb14-b84f8c995379" width="350" height="600">
+<img src="https://github.com/user-attachments/assets/285326a8-79dd-4b44-a593-b56844471e1b" width="350" height="600">
